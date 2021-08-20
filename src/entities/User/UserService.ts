@@ -1,34 +1,41 @@
-import User from "./model/User"
+import { compareSync } from "bcrypt";
+import jwt from 'jsonwebtoken'
+import { User as IUser } from "../../../project name/src/interfaces/users.interface";
+import User from "./model/User";
 
 class UserService {
 
-    async findAll() {
+    async findAll(filter = {}) {
 
-        const users = await User.find()
-
-        return users
+        return await User.find(filter)
 
     }
 
-    async create(body) {
+    async login(email: string, password: string) {
 
-        const created = await User.create(body)
+        const user = await User.findOne({ email }).lean()
 
-        return (created)
+        if(!user || !compareSync(password, user.password)) throw new Error('Unauthorized')
+
+        delete user.password
+
+        const token = jwt.sign({ id: user._id }, process.env.SECRET );
+
+        return { user, token }
 
     }
 
-    async update(id, body) {
+    async create(body: IUser) {
+
+        return await User.create(body)
+
+    }
+
+    async update(id: string, body: IUser) {
 
         const updated = await User.findByIdAndUpdate(id, body)
 
-        return (updated)
-
-    }
-
-    async delete(id) {
-
-        return await User.findByIdAndDelete(id)
+        return updated
 
     }
 

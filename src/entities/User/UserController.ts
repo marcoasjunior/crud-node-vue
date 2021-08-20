@@ -1,3 +1,4 @@
+import { PERMISSION_USER } from "./model/User";
 import UserService from "./UserService";
 
 class UserController {
@@ -7,9 +8,25 @@ class UserController {
      */
     async findAll(req: any, res: any): Promise < any > {
 
-        const users = await UserService.findAll()      
+        const filter = {} as any
 
-        return res.json(users); 
+        if (req.user?.permission !== PERMISSION_USER.ADMIN) filter._id = req.user._id  
+
+        const users = await UserService.findAll(filter)      
+
+        return res.json(users)
+
+    }
+    /**
+     * Entra no sistema e passa credenciais
+     */
+    async login(req: any, res: any): Promise < any > {
+
+        const { email, password } = req.body
+
+        const {user, token} = await UserService.login(email, password)
+
+        return res.json({ user, token })
 
     }
 
@@ -20,7 +37,7 @@ class UserController {
 
         const created = await UserService.create(req.body)
 
-        return res.json(created); 
+        return res.json(created)
             
         
     }
@@ -30,24 +47,16 @@ class UserController {
      */
     async update(req: any, res: any): Promise <any> {
 
-        const updated = await UserService.update(req.body)
+        let id = req.params.id
+
+        if (req.user?.permission !== PERMISSION_USER.ADMIN) id = req.user._id  
+
+        const updated = await UserService.update(req.params.id, req.body)
         
-		return res.json(updated); 
+		return res.json(updated)
 
-        
-    }
-
-    /**
-     * Deletar usuário 
-     */
-    async delete(req: any, res: any): Promise <any> {
-
-        await UserService.delete(id)
-
-        return res.sendStatus(NO_CONTENT)
         
     }
-
 
 }
 

@@ -1,5 +1,6 @@
 import express from "express";
 import serveStatic from "serve-static";
+import router from "./routes/router";
 
 export default class Server {
 
@@ -16,6 +17,8 @@ export default class Server {
         app.use(express.urlencoded({ extended: true }));
 
         app.use(serveStatic("./frontend/dist"));
+
+        app.use(router)
 
         try {
 

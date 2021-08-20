@@ -1,19 +1,20 @@
 import { model, Schema, Document } from 'mongoose';
+import bcrypt from 'bcrypt'
 
 export enum PERMISSION_USER {
 
     ADMIN = 'admin',
-    STANDARD = 'standard'
+        STANDARD = 'standard'
 
 }
 
 export interface User {
 
     name: string,
-    email: string,
-    password: string,
-    permission: string,
-    phone: string,
+        email: string,
+        password: string,
+        permission: PERMISSION_USER,
+        phone: string,
 
 }
 
@@ -42,6 +43,14 @@ const userSchema: Schema = new Schema({
         required: true
     },
 }, { timestamps: true });
+
+userSchema.pre('save', async function (this: any, next) {
+
+    this.password = bcrypt.hashSync(this.password, 10)
+
+    next()
+
+})
 
 const User = model < User & Document > ('User', userSchema);
 
