@@ -12,9 +12,10 @@ export default class Server {
         const port = process.env.PORT || 3000;
 
         app.use(express.json());
+
         app.use(express.urlencoded({ extended: true }));
 
-        app.use(serveStatic(process.env.FE_PATH || "./frontend/dist"));
+        app.use(serveStatic("./frontend/dist"));
 
         try {
 

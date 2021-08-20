@@ -1,22 +1,4 @@
-import express, { Application, Request, Response } from "express";
+import 'dotenv/config';
+import App from './src/App';
 
-const app: Application = express();
-
-const port = process.env.PORT || 3000;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-try {
-
-    app.listen(port, (): void => {
-
-        console.log(`Running at ${port}`);
-
-    });
-
-} catch (error) {
-
-    console.error(`Error: ${error.message}`);
-
-}
+export default new App();

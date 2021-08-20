@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 export default class Database {
 
     #connection: mongoose.Connection;
 
-    private dbOptions = {
+    #mongod = new MongoMemoryServer();
+
+    #dbOptions = {
 
         useCreateIndex: true,
         useNewUrlParser: true,
@@ -13,19 +16,17 @@ export default class Database {
 
     }
 
-    public async init(): Promise < mongoose.Connection > {
+    async init(): Promise < mongoose.Connection > {
 
-        const { MONGO_DATABASE, MONGO_HOST, MONGO_PORT } = process.env
-
-        const db_uri = `mongodb://${ MONGO_HOST }:${ MONGO_PORT }/${ MONGO_DATABASE }`
+        await this.#mongod.start();
 
         try {
 
-            await mongoose.connect(db_uri, this.dbOptions);
+            await mongoose.connect(this.#mongod.getUri(), this.#dbOptions);
 
         } catch (error) {
 
-            console.error('Erro ao iniciar banco de dados: ', error);
+            console.error('Error initializing Mongo: ', error);
 
         }
 
