@@ -1,6 +1,5 @@
 import Database from "./db/Database";
 import Server from "./Server";
-
 export default class Application {
 
     #database = new Database()
