@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node-dev ./index.ts",
     "heroku": "node dist/index.js",
-    "postinstall": "cd frontend && npm run build"
+    "postinstall": "tsc"
   },
   "repository": {
     "type": "git",
