@@ -5,46 +5,36 @@
 
             <div class="row  my-3">
                 <div class="col">
-                    <label class="form-label">Nome</label>
+                    <label class="form-label">Novo Nome</label>
                     <input v-model="form.name" type="text" class="form-control">
                 </div>
             </div>
 
             <div class="row  my-3">
                 <div class="col">
-                    <label class="form-label">E-mail</label>
+                    <label class="form-label">Novo E-mail</label>
                     <input v-model="form.email"  type="email" class="form-control">
                 </div>
             </div>
 
             <div class="row  my-3">
                 <div class="col">
-                    <label for="exampleInputPassword1" class="form-label">Senha</label>
+                    <label for="exampleInputPassword1" class="form-label"> Nova Senha</label>
                     <input v-model="form.password"  type="password" class="form-control" >
                 </div>
             </div>
 
             <div class="row  my-3">
                 <div class="col">
-                    <label class="form-label">Telefone</label>
+                    <label class="form-label"> Novo Telefone</label>
                     <input v-model="form.phone"  type="tel" class="form-control">
                 </div>
             </div>
 
             <div class="row my-3">
-                <div class="col">
-                    <div class="form-check">
-                        <input v-model="form.permission"  type="checkbox" class="form-check-input">
-                        <label  class="form-check-label" for="check">Administrador</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row my-3">
                 <div class="col d-flex justify-content-center">
 
-                    <button @click="doRegister" type="button" class="btn btn-primary">Registrar</button>
+                    <button @click="doUpdate" type="button" class="btn btn-primary">Atualizar</button>
 
                 </div>
             </div>
@@ -56,9 +46,11 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { REGISTER_USER } from '../store/constants';
+import { UPDATE_USER } from '../store/constants';
 
 export default {
+
+    props: ['userId'],
 
     data() {
         return {
@@ -69,7 +61,6 @@ export default {
                 email: '',
                 password: '',
                 phone: '',
-                permission: false,
 
             }
             
@@ -78,19 +69,23 @@ export default {
 
     methods: {
 
-        ...mapActions({ registerUser: REGISTER_USER }),  
+        ...mapActions({ updateUser: UPDATE_USER }),  
 
-        async doRegister() {
+        async doUpdate() {
 
-            this.form.permission = this.form.permission ? "admin" : "standard"
+            Object.keys(this.form).forEach(key => { 
+                if (!this.form[key]) delete this.form[key] 
+            })
+
+            if(!Object.keys(this.form).length) return alert("Sem dados para atualizar")
 
             try {
 
-                await this.registerUser(this.form)
+                await this.updateUser({ id: this.userId, userData: this.form })
 
-                this.$router.push('/')
+                this.$router.push('/list_users')
 
-                alert('Cadastro realizado com sucesso')
+                alert('Usuário atualizado com sucesso')
                 
             } catch (error) {
 

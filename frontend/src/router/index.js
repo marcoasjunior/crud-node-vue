@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import ListUsers from '../views/ListUsers.vue'
+import UpdateUser from '../views/UpdateUser.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/list_users',
     name: 'ListUsers',
     component: ListUsers
+  },
+  {
+    path: '/update_user/:id',
+    name: 'UpdateUser',
+    component: UpdateUser
   },
 
 ]

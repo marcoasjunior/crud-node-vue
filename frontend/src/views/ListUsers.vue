@@ -29,8 +29,6 @@ export default {
 
                 this.users = await this.usersList(this.form)
 
-                console.log(this.users)
-
             } catch (error) {
 
                 alert(error.message)
