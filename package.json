@@ -29,7 +29,8 @@
     "mongodb-memory-server": "^7.3.6",
     "mongoose": "^5.13.7",
     "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "signale": "^1.4.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

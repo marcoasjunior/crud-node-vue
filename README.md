@@ -1,13 +1,11 @@
 # crud-node-vue
 
-Terminal 1:
+Primeiro fazer a build do front -> cd frontend -> npm install -> npm run build
 
-Para rodar o backend -> npm install -> npm run start
-
-Terminal 2:
-
-Para rodar o frontend -> cd frontend -> npm install -> npm run serve
+Depois na pasta root -> npm install -> npm run start
 
 Depois basta acessar o link http://localhost:8080/ 
 
 Também disponibilizei no Heroku: https://crud-node-vue.herokuapp.com
+
+O MongoDB é em memória, logo ele perde os dados caso seja reiniciado.
