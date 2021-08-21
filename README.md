@@ -1,10 +1,12 @@
 # crud-node-vue
 
-Primeiro fazer a build do front -> cd frontend -> npm install -> npm run build
+1. No terminal -> npm install -g @vue/cli
 
-Depois na pasta root -> npm install -> npm run start
+2. Fazer a build do front - Na pasta root do projeto -> cd frontend -> npm install -> npm run build
 
-Depois basta acessar o link http://localhost:8080/ 
+3. Na pasta root do projeto -> npm install -> npm run start
+
+4. Acessar o link http://localhost:3000/ 
 
 Também disponibilizei no Heroku: https://crud-node-vue.herokuapp.com
 
