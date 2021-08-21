@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev ./index.ts",
+    "heroku": "cd frontend && npm run build && cd ../ && node dist/index.js",
     "postinstall": "tsc"
   },
   "repository": {
