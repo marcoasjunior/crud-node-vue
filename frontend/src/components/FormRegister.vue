@@ -1,9 +1,11 @@
 <template>
     <div class="card container">
 
+        <div class="alert alert-primary text-center mt-2 fw-bolder" role="alert">Registro de Usuário</div>
+
         <form>
 
-            <div class="row  my-3">
+            <div class="row  mb-3">
                 <div class="col">
                     <label class="form-label">Nome</label>
                     <input v-model="form.name" type="text" class="form-control">
@@ -83,6 +85,16 @@ export default {
         async doRegister() {
 
             this.form.permission = this.form.permission ? "admin" : "standard"
+
+            let err = false
+
+            for (const prop in this.form) {
+
+                if(!this.form[prop]) err = true
+
+            }
+
+            if (err) return alert('Todos os campos devem ser preenchidos')
 
             try {
 

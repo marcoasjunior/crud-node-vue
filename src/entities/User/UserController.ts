@@ -49,11 +49,11 @@ class UserController {
      */
     async update(req: any, res: any): Promise <any> {
 
-        let id = req.params.id
+        const id = req.params.id
 
-        if (req.user?.permission !== PERMISSION_USER.ADMIN) id = req.user._id  
+        if (req.user?.permission !== PERMISSION_USER.ADMIN && req.user?._id.toString() !== id) return res.sendStatus(401)
 
-        const updated = await UserService.update(req.params.id, req.body)
+        const updated = await UserService.update(id, req.body)
         
 		return res.json(updated)
 

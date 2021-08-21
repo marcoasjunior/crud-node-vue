@@ -1,9 +1,12 @@
 <template>
     <div class="card container">
 
+        <div class="alert alert-primary text-center mt-2 fw-bolder" role="alert">Atualização de Usuário</div>
+
+
         <form>
 
-            <div class="row  my-3">
+            <div class="row  mb-3">
                 <div class="col">
                     <label class="form-label">Novo Nome</label>
                     <input v-model="form.name" type="text" class="form-control">
