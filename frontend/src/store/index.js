@@ -28,9 +28,11 @@ export default new Vuex.Store({
 
         },
 
-        [FIND_USERS]: async () => {
+        [FIND_USERS]: async (context, data) => {
 
-            const response = await AxiosConfig.get('/findAll')
+            const filter = data ? JSON.stringify(data) : JSON.stringify({})
+
+            const response = await AxiosConfig.get(`/findAll?filter=${encodeURI(filter)}`)
 
             return response.data
 

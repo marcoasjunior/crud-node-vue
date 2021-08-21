@@ -1,6 +1,7 @@
 <template>
   <div>
-      <list :users="users" />
+      
+      <list :users="users" @search='getList($event)' />
   </div>
 </template>
 
@@ -15,7 +16,8 @@ export default {
 
     data() {
         return {
-            users: []
+            users: [],
+
         }
     },
 
@@ -23,11 +25,11 @@ export default {
 
         ...mapActions({ usersList: FIND_USERS }),
 
-        async getList() {
+        async getList(event) {
 
             try {
 
-                this.users = await this.usersList(this.form)
+                this.users = await this.usersList(event)
 
             } catch (error) {
 
@@ -42,8 +44,7 @@ export default {
     async created() {
 
         await this.getList()
-
-        
+    
     },
 
 }
