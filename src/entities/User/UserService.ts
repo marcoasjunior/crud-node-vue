@@ -2,6 +2,7 @@ import { compareSync } from "bcrypt";
 import jwt from 'jsonwebtoken'
 import { IUser } from './model/User'
 import User from "./model/User";
+import bcrypt from 'bcrypt'
 
 class UserService {
 
@@ -23,7 +24,7 @@ class UserService {
 
         delete user.password
 
-        const token = jwt.sign({ id: user._id }, process.env.SECRET );
+        const token = jwt.sign({ id: user._id }, process.env.SECRET);
 
         return { user, token }
 
@@ -31,15 +32,30 @@ class UserService {
 
     async create(body: IUser) {
 
-        return await User.create(body)
+        try {
+
+            return await User.create(body)
+
+        } catch (error) {
+
+            throw new Error(error)
+        }
 
     }
 
     async update(id: string, body: IUser) {
 
-        const updated = await User.findByIdAndUpdate(id, body)
+        try {
 
-        return updated
+            if (body.password) body.password = bcrypt.hashSync(body.password, 10)
+
+            return await User.findByIdAndUpdate(id, body)
+
+        } catch (error) {
+
+            throw new Error(error)
+
+        }
 
     }
 

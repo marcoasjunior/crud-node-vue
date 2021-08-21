@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export async function getUser(req: any, res: any, next) {
 
-    if (!req.headers.token) return next()
+    if (!req.headers.token || req.headers.token == 'null') return next()
 
     const decoded: any = jwt.decode(req.headers.token)
 
