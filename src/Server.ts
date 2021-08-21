@@ -1,6 +1,7 @@
 import express from "express";
 import serveStatic from "serve-static";
 import router from "./routes/router";
+import cors from 'cors'
 
 export default class Server {
 
@@ -11,6 +12,8 @@ export default class Server {
         const app = express();
 
         const port = process.env.PORT || 3000;
+
+        app.use(cors())
 
         app.use(express.json());
 

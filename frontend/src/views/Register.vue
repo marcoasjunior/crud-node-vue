@@ -13,9 +13,10 @@ import FormRegister from '../components/FormRegister.vue'
 export default {
 
     components: {
+
     FormRegister
     
-  }
+  },
 
 }
 </script>
