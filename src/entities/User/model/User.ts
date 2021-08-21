@@ -8,7 +8,7 @@ export enum PERMISSION_USER {
 
 }
 
-export interface User {
+export interface IUser {
 
     name: string,
         email: string,
@@ -52,6 +52,6 @@ userSchema.pre('save', async function (this: any, next) {
 
 })
 
-const User = model < User & Document > ('User', userSchema);
+const User = model < IUser & Document > ('User', userSchema);
 
 export default User;

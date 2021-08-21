@@ -1,6 +1,6 @@
 import { compareSync } from "bcrypt";
 import jwt from 'jsonwebtoken'
-import { User as IUser } from "../../../project name/src/interfaces/users.interface";
+import { IUser } from './model/User'
 import User from "./model/User";
 
 class UserService {
