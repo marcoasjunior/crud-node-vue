@@ -1,9 +1,12 @@
 <template>
-    <div class='container'>
+    <div class='container mt-5'>
+
+        <div class="alert alert-primary text-center" role="alert">Lista de Usuários</div>
+        
         <div class="list-group">
 
-            <button v-for="(user, index) in users" :key="index" type="button" class="list-group-item list-group-item-action" aria-current="true">
-               {{user.name}}
+            <button @click='editUser(user)' v-for="(user, index) in users" :key="index" type="button" class="list-group-item list-group-item-action text-center" aria-current="true">
+                {{user.name}}
             </button>
 
         </div>
@@ -13,7 +16,16 @@
 <script>
 export default {
 
-    props: ['users']
+    props: ['users'],
+
+    methods: {
+        editUser(user) {
+
+            console.log(user)
+
+
+        }
+    },
 
 }
 </script>

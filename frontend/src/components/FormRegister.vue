@@ -44,7 +44,7 @@
             <div class="row my-3">
                 <div class="col">
 
-                    <button @click="doRegister" type="submit" class="btn btn-primary">Registrar</button>
+                    <button @click="doRegister" type="button" class="btn btn-primary">Registrar</button>
 
                 </div>
             </div>
@@ -108,7 +108,8 @@ export default {
 
 .card {
 
-    width: 500px;
+    width: 25%;
+    min-width: 300px;
     height: 100%;
     margin-top: 30px;
 

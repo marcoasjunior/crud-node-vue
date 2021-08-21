@@ -17,12 +17,12 @@
                 </div>
             </div>
 
-            <div class="row my-3">
-                <div class="col">
+            <div class="row my-3 ">
+                <div class="col d-flex justify-content-center">
                     <button @click="doLogin" type="button" class="btn btn-primary">Login</button>
 
                 </div>
-                <div class="col">
+                <div class="col d-flex justify-content-center">
 
                     <button @click="toRegister"  type="button" class="btn btn-primary">Registrar</button>
                 </div>
@@ -87,9 +87,16 @@ export default {
 
 .card {
 
-    width: 500px;
+    width: 25%;
+    min-width: 300px;
     height: 100%;
     margin-top: 30px;
+
+}
+
+.btn {
+
+    width: 100px
 
 }
 

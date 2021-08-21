@@ -7,7 +7,11 @@ class UserService {
 
     async findAll(filter = {}) {
 
-        return await User.find(filter)
+        const users = await User.find(filter).lean()
+
+        users.forEach(user => delete user.password)
+
+        return users
 
     }
 
