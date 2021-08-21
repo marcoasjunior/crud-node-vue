@@ -11,11 +11,9 @@ class UserController {
 
         logger.start(`Starting method findAll`)
 
-        const filter = {} as any
+        let filter = req.filter
 
-        console.log(req.headers.token)
-
-        if (req.user?.permission !== PERMISSION_USER.ADMIN) filter._id = req.user._id  
+        if (req.user?.permission !== PERMISSION_USER.ADMIN) filter = { _id: req.user._id } 
 
         const users = await UserService.findAll(filter)      
 
