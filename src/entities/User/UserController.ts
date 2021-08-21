@@ -1,5 +1,6 @@
 import { PERMISSION_USER } from "./model/User";
 import UserService from "./UserService";
+import { logger } from '../../utils/Logger';
 
 class UserController {
 
@@ -7,6 +8,8 @@ class UserController {
      * Retorna todos os usuários
      */
     async findAll(req: any, res: any): Promise < any > {
+
+        logger.start(`Starting method findAll`)
 
         const filter = {} as any
 
@@ -16,6 +19,8 @@ class UserController {
 
         const users = await UserService.findAll(filter)      
 
+        logger.success('Found')
+
         return res.json(users)
 
     }
@@ -24,9 +29,13 @@ class UserController {
      */
     async login(req: any, res: any): Promise < any > {
 
+        logger.start(`Starting method login`)
+
         const { email, password } = req.body
 
-        const {user, token} = await UserService.login(email, password)
+        const { user, token } = await UserService.login(email, password)
+
+        logger.success('Login')
 
         return res.json({ user, token })
 
@@ -37,7 +46,11 @@ class UserController {
      */
     async create(req: any, res: any): Promise < any > {
 
+        logger.start(`Starting method create`)
+
         const created = await UserService.create(req.body)
+
+        logger.success('Created')
 
         return res.json(created)
             
@@ -49,13 +62,19 @@ class UserController {
      */
     async update(req: any, res: any): Promise <any> {
 
+        logger.start(`Starting method update`)
+
         const id = req.params.id
 
-        if (req.user?.permission !== PERMISSION_USER.ADMIN && req.user?._id.toString() !== id) return res.sendStatus(401)
+        logger.success('Created')
+        if (req.user?.permission !== PERMISSION_USER.ADMIN && req.user?._id.toString() !== id) 
+        return res.sendStatus(401)
 
         const updated = await UserService.update(id, req.body)
         
-		return res.json(updated)
+		logger.success('Updated')
+
+        return res.json(updated)
 
         
     }

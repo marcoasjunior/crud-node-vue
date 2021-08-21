@@ -1,7 +1,10 @@
 import User from "../entities/User/model/User"
 import jwt from 'jsonwebtoken';
+import { logger } from '../utils/Logger';
 
 export async function getUser(req: any, res: any, next) {
+
+    logger.request(`${req.method} ${req.url}`)
 
     if (!req.headers.token || req.headers.token == 'null') return next()
 
