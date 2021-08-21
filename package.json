@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./index.ts"
+    "start": "ts-node-dev ./index.ts",
+    "postinstall": "tsc"
   },
   "repository": {
     "type": "git",
