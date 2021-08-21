@@ -10,6 +10,8 @@ class UserController {
 
         const filter = {} as any
 
+        console.log(req.headers.token)
+
         if (req.user?.permission !== PERMISSION_USER.ADMIN) filter._id = req.user._id  
 
         const users = await UserService.findAll(filter)      

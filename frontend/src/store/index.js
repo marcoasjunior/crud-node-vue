@@ -1,31 +1,43 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { AxiosConfig } from '../service/AxiosConfig';
-import { REGISTER_USER } from './constants';
+import { FIND_USERS, LOGIN, REGISTER_USER } from './constants';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
+    state: {},
+    mutations: {},
+    actions: {
 
+        [REGISTER_USER]: async (context, data) => {
 
-    [REGISTER_USER]: async (context, data) => {
-        
-        console.log(data)
+            const response = await AxiosConfig.post('/', data)
 
-        const response = await AxiosConfig.post('/', data)
+            return response.data
 
-        console.log(response)
+        },
 
-        return response
-       
+        [LOGIN]: async (context, data) => {
+
+            const response = await AxiosConfig.post('/login', data)
+
+            localStorage.setItem('token', response.data.token)
+
+            return response.data
+
+        },
+
+        [FIND_USERS]: async () => {
+
+            const response = await AxiosConfig.get('/findAll')
+
+            return response.data
+
+        },
+
     },
-  },
-  modules: {
+    modules: {
 
-  }
+    }
 })

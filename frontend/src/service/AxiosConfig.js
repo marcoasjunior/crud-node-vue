@@ -6,16 +6,12 @@ const AxiosConfig = axios.create({
     // withCredentials: true
 })
 
-// AxiosConfig.interceptors.request.use(function (config) {
+AxiosConfig.interceptors.request.use(function (config) {
 
-//     config.headers.Locale = localStorage.getItem('locale') || 'pt'
+    config.headers.token = localStorage.getItem('token')
 
-//     config.headers.token = localStorage.getItem('token')
+    return config;
 
-//     return config;
-//   }, function (error) {
-
-//     return Promise.reject(error);
-//   });
+})
 
 export { AxiosConfig }

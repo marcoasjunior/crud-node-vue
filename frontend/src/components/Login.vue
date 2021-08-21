@@ -3,28 +3,28 @@
 
         <form>
 
-            <div class="row">
+            <div class="row my-3">
                 <div class="col">
                     <label class="form-label">E-mail</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input v-model="form.email" required type="email" class="form-control" autocomplete="email">
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row my-3">
                 <div class="col">
                     <label for="exampleInputPassword1" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input v-model="form.password" required type="password" class="form-control" autocomplete="current-password">
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row my-3">
                 <div class="col">
-                    <button @click="doLogin" type="submit" class="btn btn-primary">Login</button>
+                    <button @click="doLogin" type="button" class="btn btn-primary">Login</button>
 
                 </div>
                 <div class="col">
 
-                    <button @click="toRegister"  type="submit" class="btn btn-primary">Registrar</button>
+                    <button @click="toRegister"  type="button" class="btn btn-primary">Registrar</button>
                 </div>
             </div>
 
@@ -34,10 +34,25 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { LOGIN } from '../store/constants'
 
 export default {
 
+    data() {
+        return {
+            
+            form: {
+                email: '',
+                password: '',
+            }
+
+        }
+    },
+
     methods: {
+
+        ...mapActions({ loginMe: LOGIN}),
 
         toRegister() {
 
@@ -45,9 +60,21 @@ export default {
 
         },
 
-        doLogin() {
+        async doLogin() {
 
-            this.$router.push('/register')
+            try {
+
+                await this.loginMe(this.form)
+
+                this.$router.push('/list_users')
+
+                alert('Logado com sucesso')
+                
+            } catch (error) {
+
+                alert(error.message)
+                
+            }
 
         },
     },
